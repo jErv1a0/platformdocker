@@ -1,0 +1,59 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}User: {{ user.name }}{% endblock %}
+
+{% block body %}
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col-md-8">
+                <div class="card">
+                    <div class="card-header bg-info">
+                        <h2 class="mb-0 text-white">{{ user.name }}</h2>
+                    </div>
+                    <div class="card-body">
+                        <div class="row mb-3">
+                            <div class="col-sm-3">
+                                <h6 class="mb-0">ID</h6>
+                            </div>
+                            <div class="col-sm-9 text-secondary">
+                                {{ user.id }}
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-sm-3">
+                                <h6 class="mb-0">Name</h6>
+                            </div>
+                            <div class="col-sm-9 text-secondary">
+                                {{ user.name }}
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-sm-3">
+                                <h6 class="mb-0">Age</h6>
+                            </div>
+                            <div class="col-sm-9 text-secondary">
+                                {{ user.age }}
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-sm-3">
+                                <h6 class="mb-0">Role</h6>
+                            </div>
+                            <div class="col-sm-9 text-secondary">
+                                <span class="badge bg-secondary">{{ user.role }}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <a href="{{ path('app_user_edit', {'id': user.id}) }}" class="btn btn-warning">Edit</a>
+                        <a href="{{ path('app_user_index') }}" class="btn btn-secondary">Back</a>
+                        <form method="post" action="{{ path('app_user_delete', {'id': user.id}) }}" style="display:inline;" onsubmit="return confirm('Are you sure?');">
+                            <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ user.id) }}">
+                            <button class="btn btn-danger" type="submit">Delete</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
